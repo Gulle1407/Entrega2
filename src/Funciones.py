@@ -98,6 +98,9 @@ def printRound(round,n):
 
 
 def getMVP(data):
+    """
+    Recibe los datos de los puntos obtenidos en la ronda y devuelve el MVP
+    """
     maxPlayer=None
     maxValue=-1
     for player,points in data.items():
@@ -109,6 +112,9 @@ def getMVP(data):
 
 
 def sortRound(round):
+    """
+    Recibe un diccionario de la ronda y devuelve una copia ordenada
+    """
     sortedKeys=list(round.keys())
     for i in range(len(sortedKeys)):
         for j in range(i + 1, len(sortedKeys)):
@@ -129,7 +135,7 @@ def processRounds(rounds):
     
     
     puntuaciones=[3,1,-1]
-    for nRound,roundAct in enumerate(rounds,start=1):   #Se crea una tupla conteniendo el diccionario de rondas y un numero asociado a cada una: ((1,ronda1),(2,ronda2))
+    for nRound,roundAct in enumerate(rounds,start=1):
         puntosAct={'Shadow':0,'Blaze':0,'Viper':0,'Frost':0,'Reaper':0,}
         for playerAct in roundAct:
             i=0
@@ -137,8 +143,7 @@ def processRounds(rounds):
                 roundImprimir[playerAct][key]+=value
                 puntosAct[playerAct]+=puntuaciones[i]*value
                 i+=1
-        #sumo toda la info a la ronda a imprimir
-            roundImprimir[playerAct]['Puntos']+=puntosAct[playerAct]#puntosPlayerRoundAct
-        roundImprimir[getMVP(puntosAct)]['MVPs']+=1       #!!!!
+            roundImprimir[playerAct]['Puntos']+=puntosAct[playerAct]
+        roundImprimir[getMVP(puntosAct)]['MVPs']+=1
         roundImprimir=sortRound(roundImprimir)
         printRound(roundImprimir,nRound)
